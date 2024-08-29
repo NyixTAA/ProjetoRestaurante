@@ -33,33 +33,35 @@ public class Login_View extends javax.swing.JFrame {
             statusLbl1.setText("Não conectado!");
             statusLbl1.setForeground(Color.red);
         }
-        */
+         */
     }
 
     public void entrar() {
-        String sql = "select from Usuarios ( Usuario, Senha) values (?, ?)";
+        String sql = "SELECT * from Usuarios WHERE Usuario=? AND Senha=?";
 
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, UserInput.getText());
             pst.setString(2, PassInput.getText());
 
-            int adicionado = pst.executeUpdate();
-            System.out.println(adicionado);
+            rs = pst.executeQuery();
 
-            if (adicionado > 0) {
-                JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
-                Login_View login = new Login_View();
-                login.setVisible(true);
+            if (rs.next()) {
+                //System.out.println("agora abre a tela principal");
+                TelaP principal = new TelaP();
+                principal.setVisible(true);
                 this.dispose();
                 conexao.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario/Senha invalidos!!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -76,10 +78,12 @@ public class Login_View extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(57, 48, 83));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(200, 172, 214));
         jLabel1.setText("Login");
 
         jButton1.setBackground(new java.awt.Color(99, 89, 133));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(200, 172, 214));
         jButton1.setText("Entrar na Conta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,11 +92,14 @@ public class Login_View extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(200, 172, 214));
         jLabel2.setText("Senha");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(200, 172, 214));
         jLabel3.setText("Usuário");
 
+        jLabel4.setForeground(new java.awt.Color(129, 112, 143));
         jLabel4.setText("Não possui uma conta?");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -163,11 +170,11 @@ public class Login_View extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         entrar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }                                        
 
     /**
      * @param args the command line arguments
@@ -204,7 +211,7 @@ public class Login_View extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JTextField PassInput;
     private javax.swing.JTextField UserInput;
     private javax.swing.JButton jButton1;
@@ -213,5 +220,5 @@ public class Login_View extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
