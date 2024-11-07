@@ -1,1 +1,1 @@
-# Davi Ramos & Diana Braite
+# Davi Ramos, Diana Braite & João Natsumi
